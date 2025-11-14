@@ -1,4 +1,30 @@
 import random
+import time
+import sys
+from treino import cena_treino_sistema
+
+def typewriter(text, delay=0.06):
+    """Efeito máquina de escrever estilo Undertale"""
+    for char in text:
+        print(char, end='', flush=True)
+        time.sleep(delay)
+    print()
+
+def dramatic_print(text, delay=0.08):
+    """Print dramático com pausas naturais"""
+    words = text.split()
+    for i, word in enumerate(words):
+        print(word, end=' ', flush=True)
+        time.sleep(delay)
+        # Pausa natural no final de frases
+        if word.endswith(('.', '!', '?', '...')):
+            time.sleep(delay * 3)
+    print()
+
+def input_typewriter(prompt, delay=0.06):
+    """Input com efeito typewriter"""
+    typewriter(prompt, delay)
+    return input("➡️  ")
 
 class Game:
     classes = ("Mago", "Espadachim", "Berserker")
@@ -37,7 +63,6 @@ class Game:
         forca_antiga = self.forca
         vida_antiga = self.vida
         stamina_antiga = self.stamina
-        vida_antiga = self.vida
             
         self.nivel += 1
         self.forca += 2
@@ -45,23 +70,21 @@ class Game:
         self.stamina += 5
         self.stamina_maxima += 5
         self.vida_maxima += 3
-        
 
-
-        print("═" * 60)
+        typewriter("═" * 60)
         
         if self.nivel <= 5:
-            print(f"🎯 Você realmente está evoluindo, fracassado! Você alcançou o nivel {self.nivel}.")
+            dramatic_print(f"🎯 Você realmente está evoluindo, fracassado! Você alcançou o nivel {self.nivel}.")
         elif self.nivel > 5 and self.nivel <= 10:
-            print(f"🎯 Você está se saindo bem, mas ainda é um fracassado! Você alcançou o nivel {self.nivel}.")
+            dramatic_print(f"🎯 Você está se saindo bem, mas ainda é um fracassado! Você alcançou o nivel {self.nivel}.")
         else:
-            print(f"🎯 Quem diria que você fosse chegar até aqui, o admiro garoto. Você conseguiu ultrapassar os limites do jogo e está acima do nivel máximo. Um verdadeiro prodígio entre os fracassados. Alegre-se, você se tornou uma lenda!")
+            dramatic_print(f"🎯 Quem diria que você fosse chegar até aqui, o admiro garoto. Você conseguiu ultrapassar os limites do jogo e está acima do nivel máximo. Um verdadeiro prodígio entre os fracassados. Alegre-se, você se tornou uma lenda!")
 
-        print("─" * 40)
-        print(f"💪 Força: {forca_antiga} → {self.forca} (+2)")
-        print(f"❤️  Vida: {vida_antiga} → {self.vida} (+3)")
-        print(f"⚡ Stamina: {stamina_antiga} → {self.stamina} (+5)")
-        print("═" * 60)
+        dramatic_print("─" * 40)
+        dramatic_print(f"💪 Força: {forca_antiga} → {self.forca} (+2)")
+        dramatic_print(f"❤️  Vida: {vida_antiga} → {self.vida} (+3)")
+        dramatic_print(f"⚡ Stamina: {stamina_antiga} → {self.stamina} (+5)")
+        typewriter("═" * 60)
 
     def ataques(self):
         if self.classe == "Mago":
@@ -95,41 +118,202 @@ class Game:
 
     def begin(self):
         print("╔" + "═" * 58 + "╗")
-        print(f"║{'SWORD ART ONLINE - INÍCIO DA JORNADA':^58}║")
+        dramatic_print(f"║{'SWORD ART ONLINE - INÍCIO DA JORNADA':^58}║")
         print("╚" + "═" * 58 + "╝")
         
-        print(f"🎮 Jogador: {self.nome}")
-        print(f"🏹 Classe: {self.classe}")
-        print(f"📊 Nível: {self.nivel}")
-        print(f"💪 Força: {self.forca}")
-        print(f"❤️  Vida: {self.vida}")
-        print(f"⚡ Stamina: {self.stamina}")
+        dramatic_print(f"🎮 Jogador: {self.nome}")
+        dramatic_print(f"🏹 Classe: {self.classe}")
+        dramatic_print(f"📊 Nível: {self.nivel}")
+        dramatic_print(f"💪 Força: {self.forca}")
+        dramatic_print(f"❤️  Vida: {self.vida}")
+        dramatic_print(f"⚡ Stamina: {self.stamina}")
         
-        print("\n" + "─" * 60)
-        print("📋 AVISOS NECESSÁRIOS PARA SUA SOBREVIVÊNCIA:")
-        print("🔸 1- Você deve sempre estar atento aos seus arredores, inimigos podem surgir a qualquer momento.")
-        print("🔸 2- Sempre gerencie bem sua stamina, ataques mais fortes consomem mais stamina, caso sua stamina chegue a zero, você morrerá instantaneamente.")
-        print("🔸 3- Procure sempre evoluir seu nivel, com o nivel sendo aumentado, seus atributos também subirão, isso irá facilitar sua jornada.")
-        print("🔸 4- Divirta-se ou morra!")
-        print("─" * 60)
+        dramatic_print("\n" + "─" * 60)
+        dramatic_print("📋 AVISOS NECESSÁRIOS PARA SUA SOBREVIVÊNCIA:")
+        dramatic_print("🔸 1- Você deve sempre estar atento aos seus arredores, inimigos podem surgir a qualquer momento.")
+        dramatic_print("🔸 2- Sempre gerencie bem sua stamina, ataques mais fortes consomem mais stamina, caso sua stamina chegue a zero, você morrerá instantaneamente.")
+        dramatic_print("🔸 3- Procure sempre evoluir seu nivel, com o nivel sendo aumentado, seus atributos também subirão, isso irá facilitar sua jornada.")
+        dramatic_print("🔸 4- Divirta-se ou morra!")
+        dramatic_print("─" * 60)
 
     def parte2(self):
         print("\n" + "╔" + "═" * 58 + "╗")
-        print(f"║{'CAPÍTULO 2: A DUNGEON DOS GOBLINS':^58}║")
+        dramatic_print(f"║{'CAPÍTULO 2: A DUNGEON DOS GOBLINS':^58}║")
         print("╚" + "═" * 58 + "╝")
         
-        print("🌄 Após alguns dias explorando o mundo de Aincrad, você se sente mais confiante.")
-        print("🏔️  Após vagar dias, você avista outra dungeon ao longe, decidindo se aproximar dela.")
-        print("👹 Ao chegar perto, você percebe que a entrada está cercada por goblins que parecem estar protegendo algo.")
-        print("🔊 Você sabe que enfrentá-los será um desafio, mas parece ter uma voz vindo de dentro da dungeon, o chamando para entrar.")
-        print("💀 Você precisa entrar lá.")
-        print("\n" + "─" * 60)
-        print("🎯 Então fracassado, agora é seu momento!")
-        print("💨 Respire e vá a batalha contra esses goblins nojentos!")
-        print("🔍 Descubra cada vez mais sobre esse mundo!")
-        print("─" * 60)
-        print("🎯 Essa é a primeira e última vez que irei encorajá-lo a enfrentar alguém,")
-        print("💔 então não me decepcione fracassado!")
-        print("🔮 Essa dungeon tem algo de especial,")
-        print("😈 eu quero que você derrote-os e descubra o que está lá HAHAHAHA!")
-        print("─" * 60)
+        dramatic_print("🌄 Após alguns dias explorando o mundo de Aincrad, você se sente mais confiante.")
+        dramatic_print("🏔️  Após vagar dias, você avista outra dungeon ao longe, decidindo se aproximar dela.")
+        dramatic_print("👹 Ao chegar perto, você percebe que a entrada está cercada por goblins que parecem estar protegendo algo.")
+        dramatic_print("🔊 Você sabe que enfrentá-los será um desafio, mas parece ter uma voz vindo de dentro da dungeon, o chamando para entrar.")
+        dramatic_print("💀 Você precisa entrar lá.")
+        dramatic_print("\n" + "─" * 60)
+        dramatic_print("🎯 Então fracassado, agora é seu momento!")
+        dramatic_print("💨 Respire e vá a batalha contra esses goblins nojentos!")
+        dramatic_print("🔍 Descubra cada vez mais sobre esse mundo!")
+        dramatic_print("─" * 60)
+        dramatic_print("🎯 Essa é a primeira e última vez que irei encorajá-lo a enfrentar alguém,")
+        dramatic_print("💔 então não me decepcione fracassado!")
+        dramatic_print("🔮 Essa dungeon tem algo de especial,")
+        dramatic_print("😈 eu quero que você derrote-os e descubra o que está lá HAHAHAHA!")
+        dramatic_print("─" * 60)
+
+    def parte3(self):
+        print("\n" + "╔" + "═" * 58 + "╗")
+        dramatic_print(f"║{'CAPÍTULO 3: O TEMPLO DOS DEUSES':^58}║")
+        print("╚" + "═" * 58 + "╝")
+        
+        dramatic_print("Ao entrar na dungeon, você sente um clima estranho, como se a todo momento você estivesse sendo observado. Mesmo enfrentando os goblins, e vários outros inimigos dentro dessa dungeon, a sensação persiste.")
+        dramatic_print("Você encontra uma sala, com uma porta gigante, adornada com símbolos antigos e misteriosos. Ao se aproximar, uma voz ecoa em sua cabeça, 'Entre', diz a voz. Você sente calafrios, sente que algo grande irá acontecer caso você entre nessa sala... Porém, não sabe dizer se será algo bom ou ruim.")
+        
+        decisao = input_typewriter("\nO que você irá fazer? (entrar/abandonar): ").strip().lower()
+
+        if decisao == "entrar":
+            dramatic_print("\n" + "═" * 60)
+            dramatic_print("VOCÊ DECIDIU ENTRAR!")
+            dramatic_print("═" * 60)
+            
+            dramatic_print("\nVocê toma coragem e atravessa a porta gigante. Ao entrar, uma luz intensa")
+            dramatic_print("te envolve. Você sente uma energia ancestral percorrer seu corpo.")
+            dramatic_print("As vozes na sua mente sussurram segredos antigos do mundo de Aincrad.")
+            dramatic_print("\nVocê encontrou o Santuário dos Deuses Antigos... Mas esses Deuses não são benevolentes.")
+            dramatic_print("Eles testam a coragem dos aventureiros, apenas para rirem de suas tentativas.")
+            dramatic_print("Você lê inscrições nas paredes que falam sobre sacrifícios e desafios.")
+            dramatic_print("Enquanto explora o templo, você sente que está sendo avaliado por essas entidades poderosas.")
+            dramatic_print("Entidades essas que são estátuas de aproximadamente 20m de altura, cada uma segurando uma arma diferente.")
+            dramatic_print("\nDe repente, as estátuas começam a se mover, revelando-se como seres vivos, gigantescos e poderosos. Elas se aproximam de você, e você percebe que está em uma situação extremamente perigosa.")
+            decisao2 = input_typewriter("\nO que você fará diante dessa situação? (lutar/fugir): ").strip().lower()
+
+            if decisao2 == "lutar":
+                dramatic_print("\nLutar é inútil, mesmo querendo, você sabe que não tem força o suficiente contra elas. Você se sente pequeno diante essas criaturas gigantescas. Como se fizesse qualquer coisa de errado, elas poderiam te matar com um simples gesto.")
+            else:
+                dramatic_print("\nVocê tenta fugir, mas a porta já se fechou atrás de você. Você está preso ali e sente que as deixou furiosas. Como se cada movimento errado, elas pudessem te matar, com um simples gesto.")
+
+            dramatic_print("\nVocê percebe que está em uma situação extremamente perigosa, e que talvez, a única maneira de sobreviver seja obedecendo essas criaturas gigantescas...")
+
+            dramatic_print("\nVocê aceita o que está acontecendo alí, e decide se curvar diante dessas estatuas. Essa é a única maneira de sobreviver, você pensa consigo mesmo. As estátuas parecem se acalmar e param de se movimentar. Você sente um alívio momentâneo, mas no fundo sabe que está apenas adiando o inevitável.")
+            dramatic_print("Com sua cabeça cheia de pensamentos, você tenta encontrar uma maneira de sair dali.")
+
+            dramatic_print("\nAo escutar vozes vindas de longe, você percebe que a saída da dungeon está próxima. Você por instinto, grita por ajuda. Quando percebeu, já era tarde de mais, seu corpo foi partido ao meio quase que instantaneamente.")
+            dramatic_print("Tudo fica escuro, você sente seu corpo se afundando em seu próprio sangue. Um calor vem te abraçando, você sabe que está morrendo. Sua visão começa a escurecer, mas antes de tudo ficar completamente escuro, você vê as estátuas se aproximando de você, e a última coisa que você guarda em sua mente antes de sua morte, é a estátua abrindo um sorriso ao vê-lo morrer.")
+
+            dramatic_print(f"\nPensamento {self.nome}: 'Droga, minha vida vai acabar, e a última coisa que tenho é a sensação de ser fraco, de que eu poderia mais, aquela estátua... Ela estava sorrindo para mim, desgraçada, se eu tiver uma chance de poder me vingar. Se eu conseguir voltar, eu juro, que irei destruir vocês, todas vocês, Deuses de merda...'")
+
+            dramatic_print("\n" + "═" * 60)
+            dramatic_print("🔄 SISTEMA DE EMERGÊNCIA")
+            dramatic_print("═" * 60)
+
+            sistema = input_typewriter("\nVocê deseja se tornar um jogador-sistema? Caso responda não, seu coração irá parar de bater em 0,2 segundos. (sim/não): ").strip().lower()
+
+            if sistema == "sim":
+                dramatic_print("\nVocê acorda em um hospital, com o corpo inteiro. Você não está mais partido ao meio, e está vivo, isso é impossivel, você pensa consigo mesmo. Você começa a se levantar da cama, mas sente medo, medo daquilo se repetir, medo de continuar sendo fraco, medo do inevitável. Ao olhar para o lado, você vê um homem, encapuzado, você não consegue ver seu rosto, mas sente uma presença poderosa vindo dele.")
+
+                dramatic_print("\nHomem: 'Então você é o novato? Hmm... Você ainda não passa de um fraco, mas vejo que mesmo com medo, você ainda tem vontade de viver. Obedeça ao sistema garoto, ele te deixara mais forte do que qualquer um.'")
+
+                dramatic_print("\nAo piscar de olhos o homem some, dúvidas vem a sua cabeça. O que é esse sistema?")
+                dramatic_print("Ao se perguntar, uma tela aparece em sua frente, como se fosse um jogo.")
+                dramatic_print("Você vê suas estatísticas, seus atributos, e uma série de missões para completar. Você percebe que agora é um jogador-sistema, e que tem a chance de se tornar mais forte do que nunca.")
+
+            elif sistema == "não":
+                dramatic_print("\nVocê realmente nunca passou de um fracassado. Seu coração para de bater. Você morreu.")
+            else:
+                dramatic_print("\nResposta inválida. Seu coração para de bater. Você morreu.")
+            
+        else:
+            dramatic_print(f"\nVocê decide abandonar a dungeon, como um covarde. Você ainda tem medo de enfrentar o desconhecido. E isso o torna incapaz de evoluir, você está sempre fugindo e fugindo do que desconhece. Mas saiba, caro/a {self.nome}, que essa dungeon, não é do tipo de fazer as pazes com covardes...")
+
+            dramatic_print("\nVocê sente algo te perseguindo enquanto tenta sair da dungeon. De repente, uma sombra aparece atrás de você, e antes que possa reagir, tudo fica escuro... Você foi derrotado, antes de poder fazer qualquer coisa, você foi derrotado, principalmente, por não ter coragem de enfrentar o desconhecido.")
+
+            dramatic_print("\n" + "─" * 60)
+            dramatic_print("💀 O DESPERTAR NAS PROFUNDEZAS")
+            dramatic_print("─" * 60)
+
+            dramatic_print("\nVocê acorda em um lugar, cercado por estatuas gigantes, cada uma com uma arma, as estátuas deviam ter em cerca de 20m de altura. Você finalmente entende o que estava te observando esse tempo todo, afinal, a sensação agora está mais forte do que nunca. Você percebe algo estranho, como se fossem escritas pelas paredes, e mesmo estando em uma escrita que você não conhece, você consegue entender perfeitamente o que está escrito ali.")
+
+            dramatic_print("\nAlí diz... 'Adore-nos', 'Obedeça-nos', 'Sirva-nos'. Você sente um calafrio percorrer sua espinha. De repente, as estátuas começam a se mover, uma a uma, revelando-se como seres vivos, gigantescos e poderosos. Elas se aproximam de você, e você percebe que está em uma situação extremamente perigosa.")
+
+            decisao1 = input_typewriter("\nO que você fará diante dessa situação? (lutar/fugir): ").strip().lower()
+
+            if decisao1 == "lutar":
+                dramatic_print("\nLutar é inútil, mesmo querendo, você sabe que não tem força o suficiente contra elas. Você se sente pequeno diante essas criaturas gigantescas. Como se fizesse qualquer coisa de errado, elas poderiam te matar com um simples gesto.")
+            else:
+                dramatic_print("\nVocê tenta fugir, mas a porta já se fechou atrás de você. Você está preso ali e sente que as deixou furiosas. Como se cada movimento errado, elas pudessem te matar, com um simples gesto.")
+
+            dramatic_print("\nVocê percebe que está em uma situação extremamente perigosa, e que talvez, a única maneira de sobreviver seja obedecendo essas criaturas gigantescas...")
+
+            dramatic_print("\nVocê aceita o que está acontecendo alí, e decide se curvar diante dessas estatuas. Essa é a única maneira de sobreviver, você pensa consigo mesmo. As estátuas parecem se acalmar e param de se movimentar. Você sente um alívio momentâneo, mas no fundo sabe que está apenas adiando o inevitável.")
+            dramatic_print("Com sua cabeça cheia de pensamentos, você tenta encontrar uma maneira de sair dali.")
+
+            dramatic_print("\nAo escutar vozes vindas de longe, você percebe que a saída da dungeon está próxima. Você por instinto, grita por ajuda. Quando percebeu, já era tarde de mais, seu corpo foi partido ao meio quase que instantaneamente.")
+            dramatic_print("Tudo fica escuro, você sente seu corpo se afundando em seu próprio sangue. Um calor vem te abraçando, você sabe que está morrendo. Sua visão começa a escurecer, mas antes de tudo ficar completamente escuro, você vê as estátuas se aproximando de você, e a última coisa que você guarda em sua mente antes de sua morte, é a estátua abrindo um sorriso ao vê-lo morrer.")
+
+            dramatic_print(f"\nPensamento {self.nome}: 'Droga, minha vida vai acabar, e a última coisa que tenho é a sensação de ser fraco, de que eu poderia mais, aquela estátua... Ela estava sorrindo para mim, desgraçada, se eu tiver uma chance de poder me vingar. Se eu conseguir voltar, eu juro, que irei destruir vocês, todas vocês, Deuses de merda...'")
+
+            dramatic_print("\n" + "═" * 60)
+            dramatic_print("🔄 SISTEMA DE EMERGÊNCIA")
+            dramatic_print("═" * 60)
+
+            sistema = input_typewriter("\nVocê deseja se tornar um jogador-sistema? Caso responda não, seu coração irá parar de bater em 0,2 segundos. (sim/não): ").strip().lower()
+
+            if sistema == "sim":
+                dramatic_print("\nVocê acorda em um hospital, com o corpo inteiro. Você não está mais partido ao meio, e está vivo, isso é impossivel, você pensa consigo mesmo. Você começa a se levantar da cama, mas sente medo, medo daquilo se repetir, medo de continuar sendo fraco, medo do inevitável. Ao olhar para o lado, você vê um homem, encapuzado, você não consegue ver seu rosto, mas sente uma presença poderosa vindo dele.")
+
+                dramatic_print("\nHomem: 'Então você é o novato? Hmm... Você ainda não passa de um fraco, mas vejo que mesmo com medo, você ainda tem vontade de viver. Obedeça ao sistema garoto, ele te deixara mais forte do que qualquer um.'")
+
+                dramatic_print("\nAo piscar de olhos o homem some, dúvidas vem a sua cabeça. O que é esse sistema?")
+                dramatic_print("Ao se perguntar, uma tela aparece em sua frente, como se fosse um jogo.")
+                dramatic_print("Você vê suas estatísticas, seus atributos, e uma série de missões para completar. Você percebe que agora é um jogador-sistema, e que tem a chance de se tornar mais forte do que nunca.")
+
+            elif sistema == "não":
+                dramatic_print("\nVocê realmente nunca passou de um fracassado. Seu coração para de bater. Você morreu.")
+            else:
+                dramatic_print("\nResposta inválida. Seu coração para de bater. Você morreu.")
+
+    def parte4(self):
+        print("\n" + "╔" + "═" * 58 + "╗")
+        dramatic_print(f"║{'CAPÍTULO 4: A ASCENSÃO DO JOGADOR-SISTEMA':^58}║")
+        print("╚" + "═" * 58 + "╝")
+        
+        dramatic_print("\nApós toda essa loucura, você ainda está processando o que aconteceu. Enquanto a tela do sistema flutua diante de seus olhos, você lê as missões que precisa completar para ganhar 'Recompensas' e 'Habilidades', mas caso o contrário, tem algo bem grande e vermelho escrito 'Punição caso você não complete as missões. Tempo até missão acabar: 5 horas'.")
+
+        while True:  
+            decisao = input_typewriter("\nO que você fará? ('aceitar/adiar'): ").strip().lower()
+
+            if decisao == "aceitar":
+                dramatic_print("\n✅ Você aceitou as missões do Sistema!")
+                recompensas = cena_treino_sistema()
+                if recompensas:
+                    self.aplicar_recompensas(recompensas)
+                break
+                
+            elif decisao == "adiar":
+                while True:
+                    confirmar = input_typewriter("\n⚠️  Tem certeza que deseja adiar as missões? Isso pode ter consequências graves. (sim/não): ").strip().lower()
+                    if confirmar == "sim":
+                        break
+                    elif confirmar == "não":
+                        decisao = "aceitar"
+                        break
+                    else:
+                        dramatic_print("\n❌ Resposta inválida. Digite 'sim' ou 'não'.")
+                dramatic_print("\n⏰ Você decide adiar as missões, mas o tempo está passando...")
+                x = 5
+                while x != 0:
+                    dramatic_print(f"\n⏳ Tempo restante para completar as missões: {x} horas")
+                    time.sleep(1)
+                    x -= 1
+                    dramatic_print("⚡ Você sente a pressão do Sistema...")
+                continue
+                
+            else:
+                dramatic_print("\n❌ Resposta inválida. Digite 'aceitar' ou 'adiar'")
+
+    def aplicar_recompensas(self, recompensas):
+        self.forca += recompensas['forca']
+        self.vida_maxima += recompensas['vida']
+        self.vida = self.vida_maxima
+        self.stamina_maxima += recompensas['stamina']
+        self.stamina = self.stamina_maxima
+        dramatic_print("\n✨ ATRIBUTOS ATUALIZADOS!")
+        dramatic_print(f"💪 Força: {self.forca}")
+        dramatic_print(f"❤️  Vida: {self.vida_maxima}") 
+        dramatic_print(f"⚡ Stamina: {self.stamina_maxima}")
