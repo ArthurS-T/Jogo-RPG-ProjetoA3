@@ -35,7 +35,11 @@ class MinigameTreino:
         self.typewriter("Pressione 'F' rapidamente para fazer flexões!")
         self.typewriter("Cuidado com a stamina! (Pressione 'Q' para descansar)")
         
-        while self.flexoes_feitas < self.flexoes_alvo and self.stamina > 0:
+        while self.flexoes_feitas < self.flexoes_alvo:
+            if self.stamina <= 0:
+                print("\n💀 Você desmaiou de cansaço! Precisa descansar mais.")
+                return False
+            
             try:
                 tecla = input("\nPressione uma tecla: ").upper()
                 
@@ -64,11 +68,7 @@ class MinigameTreino:
             except KeyboardInterrupt:
                 print("\n😴 Treino interrompido...")
                 return False
-                
-        if self.stamina <= 0:
-            print("\n💀 Você desmaiou de cansaço! Precisa descansar mais.")
-            return False
-            
+                  
         print("\n✅ FLEXÕES CONCLUÍDAS! Você está mais forte!")
         return True
     
@@ -79,7 +79,9 @@ class MinigameTreino:
         
         sequencias = ["CRUNCH", "SIT UP", "LEVANTA", "FORCA", "RESPIRA"]
         
-        while self.abdominais_feitos < self.abdominais_alvo and self.stamina > 0:
+        while self.abdominais_feitos < self.abdominais_alvo:
+            if self.stamina <= 0:
+                return "restart"
             sequencia = random.choice(sequencias)
             print(f"\n🔤 Digite: {sequencia}")
             
@@ -103,11 +105,7 @@ class MinigameTreino:
             except KeyboardInterrupt:
                 print("\n😴 Treino interrompido...")
                 return False
-                
-        if self.stamina <= 0:
-            print("\n💀 Você desmaiou de cansaço!")
-            return False
-            
+                         
         print("\n✅ ABDOMINAIS CONCLUÍDOS! Seu core está mais forte!")
         return True
     
@@ -157,29 +155,50 @@ class MinigameTreino:
         print("🚀 INICIANDO TREINO INTENSO!")
         self.typewriter("O Sistema está te observando... Prove seu valor!")
         
-        # Flexões
-        if not self.minigame_flexoes():
+        initial_stamina = self.stamina
+        self.flexoes_feitas = 0
+        initial_abdominais = 0
+        initial_corrida = 0
+
+        # Flexões (mantém progresso entre reinicios)
+        result = self.minigame_flexoes()
+        if result is False:
             return False
             
         # Recuperar um pouco de stamina
         self.stamina = min(self.stamina + 30, 100)
         print("\n💧 Beba água e prepare-se para os abdominais!")
         time.sleep(2)
+
+        primeira_vez = True
+        while True:
+            if not primeira_vez:
+                self.abdominais_feitos = initial_abdominais
+                self.corrida_feita = initial_corrida
+                self.stamina = initial_stamina
+            primeira_vez = False
         
-        # Abdominais
-        if not self.minigame_abdominais():
-            return False
+        # Abdominais (se stamina chegar a 0, reiniciar esse treino)
+            result = self.minigame_abdominais()
+            if result == "restart":
+                print("\n🔄 Sua stamina chegou a 0 durante os abdominais - reiniciando o treino. . .")
+                time.sleep(1)
+
+                continue
+            if result is False:
+                return False
             
-        # Última recuperação
-        self.stamina = min(self.stamina + 20, 100)
-        print("\n🌬️  Respire fundo... Hora da corrida!")
-        time.sleep(2)
+            # Última recuperação
+            self.stamina = min(self.stamina + 20, 100)
+            print("\n🌬️  Respire fundo... Hora da corrida!")
+            time.sleep(2)
         
-        # Corrida
-        if not self.minigame_corrida():
-            return False
+            # Corrida
+            result = self.minigame_corrida()
+            if result is False:
+                return False
             
-        return True
+            return True
     
     def recompensa_treino(self):
         print("\n" + "⭐" * 60)

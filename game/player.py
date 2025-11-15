@@ -91,7 +91,7 @@ class Game:
             self.ataques_info = {
             "Bola De Fogo": {"stam": 3, "dano": 2 + self.forca},
             "Raio Congelante": {"stam": 4, "dano": 3 + self.forca},
-            "Tempestade Arcana": {"stam": 6, "dano": 4 + self.forca}
+            "Tempestade Arcana": {"stam": 6, "dano": 5 + self.forca}
             }
             self.ataques = list(self.ataques_info.keys())
         

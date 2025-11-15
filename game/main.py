@@ -4,7 +4,7 @@ from battles import desafio_inicial, batalha_goblins
 def main():
 
     # Jogo Parte 1
-    jogo1 = Game("Low", "Espadachim")
+    jogo1 = Game("Tatuir", "Berserker")
     jogo1.stats_classe()
     jogo1.ataques()
     jogo1.begin()
